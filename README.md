@@ -14,50 +14,43 @@ _Create workflows that enable you to use Continuous Integration (CI) for your pr
 </header>
 
 <!--
-  <<< Author notes: Step 1 >>>
-  Choose 3-5 steps for your course.
-  The first step is always the hardest, so pick something easy!
-  Link to docs.github.com for further explanations.
-  Encourage users to open new tabs for steps!
+  <<< Author notes: Step 2 >>>
+  Start this step by acknowledging the previous step.
+  Define terms and link to docs.github.com.
 -->
 
-## Step 1: Add a test workflow
+## Step 2: Fix the test
 
-_Welcome to "GitHub Actions: Continuous Integration"! :wave:_
+_Great job adding the templated workflow! :tada:_
 
-**What is _continuous integration_?**: [Continuous integration](https://en.wikipedia.org/wiki/Continuous_integration) can help you stick to your team’s quality standards by running tests and reporting the results on GitHub. CI tools run builds and tests, triggered by commits. The quality results post back to GitHub in the pull request. The goal is fewer issues in `main` and faster feedback as you work.
+Adding that file to this branch is enough for GitHub Actions to begin running CI on your repository.
 
-![An illustration with a left half and a right half. On the left: illustration of how GitHub Actions terms are encapsulated. At the highest level: workflows and event triggers. Inside workflows: jobs and definition of the build environment. Inside jobs: steps. Inside steps: a call to an action. On the right: the evaluated sequence: workflow, job, step, action.](https://user-images.githubusercontent.com/6351798/88589835-f5ce0900-d016-11ea-8c8a-0e7d7907c713.png)
+When a GitHub Actions workflow is running, you should see some checks in progress, like the screenshot below.
 
-- **Workflow**: A workflow is a unit of automation from its start to finish, including the definition of what triggers the automation, what environment or other aspects should be taken into account during the automation, and what should happen as a result of the trigger.
-- **Job**: A job is a section of the workflow, and is made up of one or more steps. In this section of our workflow, the template defines the steps that make up the `build` job.
-- **Step**: A step represents one _effect_ of the automation. A step could be defined as a GitHub Action, or another unit, like printing something to the console.
-- **Action**: An action is a piece of automation written in a way that is compatible with workflows. Actions can be written by GitHub, by the open source community, and you can write them yourself!
+<img alt="checks in progress in a merge box" src=https://user-images.githubusercontent.com/16547949/66080348-ecc5f580-e533-11e9-909e-c213b08790eb.png width=400 />
 
-To learn more, check out [Workflow syntax for GitHub Actions](https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions) in the GitHub Docs.
+You can follow along as GitHub Actions runs your job by going to the **Actions** tab or by clicking "Details" in the merge box below.
 
-First, let's add a workflow to *lint* (clean, like a lint roller) our Markdown files in this repository. This workflow has a deliberate error in it ("npx" should be "npm"), which we'll debug in the next unit.
+When the tests finish, you'll see a red X :x: or a green check mark :heavy_check_mark: in the merge box. At that point, you can access the logs for the build job and its associated steps.
 
-### :keyboard: Activity: Add a test workflow
+_By looking at the logs, can you identify which tests failed?_ To find it, go to one of the failed builds and scroll through the log. Look for a section that lists all the unit tests. We're looking for the name of the test with an "x".
 
-1. Open a new browser tab, and work through the following steps in that tab while you read the instructions in this tab.
-1. Go to the **Actions tab**.
-1. Click **New workflow**.
-1. Search for "Simple workflow" and click **Configure**.
-1. Name your workflow `ci.yml`.
-1. Update the workflow by deleting the last two steps.
-1. Add the following step at the end of your workflow:
-   ```yml
-   - name: Run markdown lint
-     run: |
-       npm install remark-cli remark-preset-lint-consistent
-       npx remark . --use remark-preset-lint-consistent --frail
-   ```
-   > Even after the code is indented properly in `ci.yml`, you will see a build error in GitHub Actions. We'll fix this in the next step.
-1. Click **Commit changes...**, and choose to make a new branch named `ci`.
-1. Click **Propose changes**.
-1. Click **Create pull request**.
-1. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/actions) will automatically update to the next step.
+<img alt="screenshot of a sample build log with the names of the tests blurred out" src=https://user-images.githubusercontent.com/16547949/65922013-e740a200-e3b1-11e9-8151-faf52c30201e.png width=400 />
+
+If the checks don't appear or if the checks are stuck in progress, there's a few things you can do to try and trigger them:
+
+- Refresh the page, it's possible the workflow ran and the page just hasn't been updated with that change.
+- Try making a commit on this branch. Our workflow is triggered with a `push` event, and committing to this branch will result in a new `push`.
+- Edit the workflow file on GitHub and ensure there are no red lines indicating a syntax problem.
+
+### :keyboard: Activity: Fix the test
+
+1. Update the code in the `ci` branch to get the test to pass. You need to look something like this:
+  ```markdown
+  _underscore_
+  ```
+1. **Commit changes**.
+1. Wait about 20 seconds and then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/actions) will automatically update to the next step.
 
 <footer>
 
